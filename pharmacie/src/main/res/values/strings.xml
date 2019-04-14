@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Pharmacy</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="firstname">Lastname</string>
+    <string name="lastname">Firstname</string>
+    <string name="mobile_num">Phone number</string>
+    <string name="NSS">Social Security number</string>
+    <string name="login">Login</string>
+    <string name="signup">No account yet? Create one</string>
+    <string name="create">Create Account</string>
+    <string name="retourne">Already a member? Login</string>
+</resources>
