@@ -13,13 +13,13 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/logo"
-                   android:layout_width="wrap_content"
-                   android:layout_height="72dp"
-                   android:layout_marginBottom="24dp"
-                   android:layout_gravity="center_horizontal" />
+       <ImageView android:src="@drawable/logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_gravity="center_horizontal" />
 
-        <!-- Firstname Label -->
+         <!-- Firstname Label -->
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                       android:id="@+id/input_mobile"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:inputType="number"
+                      android:inputType="text"
                       android:hint="@string/mobile_num" />
         </android.support.design.widget.TextInputLayout>
 

@@ -28,7 +28,7 @@
                       android:id="@+id/input_mobile_num"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:inputType="number"
+                      android:inputType="text"
                       android:hint="@string/mobile_num" />
         </android.support.design.widget.TextInputLayout>
 
