@@ -1,23 +1,32 @@
 package io.pharmacie;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.pharmacie.Retrofit.IMyService;
+import io.pharmacie.Retrofit.Api;
 import io.pharmacie.Retrofit.RetrofitClient;
+import io.pharmacie.models.User;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -34,37 +43,53 @@ public class SignupActivity extends AppCompatActivity {
     final String fromPhoneNumber = "+12012318756";
     final int numbterLetterPwd = 3;
 
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    IMyService iMyservice;
-
-    @Override
-    protected void onStop() {
-        compositeDisposable.clear();
-        super.onStop();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
 
-        Retrofit retrofitClient = RetrofitClient.getInstance();
-        iMyservice = retrofitClient.create(IMyService.class);
+        View decorView = getWindow().getDecorView();
+        MainActivity.hideSystemUI(decorView);
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password = generatePwd(numbterLetterPwd);
-                sendSms(accountSid,authToken,fromPhoneNumber,password,_input_lastname.getText().toString(),
-                        _input_firstname.getText().toString(),_input_email.getText().toString(),
-                        _input_mobile.getText().toString(),_input_NSS.getText().toString());
+                User user = new User(_input_lastname.getText().toString(),_input_firstname.getText().toString(),_input_email.getText().toString()
+                        ,_input_mobile.getText().toString(),_input_NSS.getText().toString(),generatePwd(6));
+
+                Retrofit.Builder builder = new Retrofit.Builder()
+                        .baseUrl(Api.Base_Url)
+                        .addConverterFactory(GsonConverterFactory.create());
+                Retrofit retrofit = builder.build();
+
+                Api client = retrofit.create(Api.class);
+                Call<User> call = client.createAccount(user);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+
+                        Toast.makeText(SignupActivity.this,"something went great :)",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                       Toast.makeText(SignupActivity.this,"something went wrong :(",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
             }
         });
+
 
         _loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
+                MainActivity.PreviousClass = SignupActivity.class;
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -72,32 +97,6 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-
-    private void sendSms(String accountSid, String authToken, String fromPhoneNumber,
-                         String password,String Lastname,String Firstname,String email,
-                         String PhoneNumber,String SSN) {
-        if(TextUtils.isEmpty(PhoneNumber)){
-            Toast.makeText(this,"Pnone number  cannot be null or empty",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        compositeDisposable.add(iMyservice.sendSMS(accountSid,authToken,fromPhoneNumber,
-                password,Lastname,Firstname,email,
-                PhoneNumber,SSN)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String response) throws Exception{
-                        Toast.makeText(SignupActivity.this,""+response,Toast.LENGTH_SHORT).show();
-                    }
-                }));
-    }
-
 
     public String generatePwd(int length) {
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -109,5 +108,26 @@ public class SignupActivity extends AppCompatActivity {
         }
         System.out.println(pass);
         return pass;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            Intent intentprevious = new Intent(getApplicationContext(),MainActivity.PreviousClass);
+            startActivity(intentprevious);
+            finish();
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_HOME)
+        {
+
+        }
+
+        // // TODO Auto-generated method stub
+        return super.onKeyDown(keyCode, event);
+
     }
 }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fitsSystemWindows="true">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:gravity="bottom|end"
+    android:orientation="horizontal">
 
     <LinearLayout
             android:orientation="vertical"
@@ -18,15 +20,15 @@
                     android:layout_height="72dp"
                     android:layout_marginBottom="24dp"
                     android:layout_gravity="center_horizontal" />
-
          <!-- Firstname Label -->
+
         <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
             <android.support.design.widget.TextInputEditText
-                      android:id="@+id/input_firstname"
+                      android:id="@+id/input_lastname"
                       android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:inputType="textPersonName"
@@ -40,7 +42,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
             <android.support.design.widget.TextInputEditText
-                    android:id="@+id/input_lastname"
+                    android:id="@+id/input_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -106,6 +108,15 @@
                   android:text="@string/retourne"
                   android:gravity="center"
                   android:textSize="16dip"/>
-
     </LinearLayout>
-</ScrollView>
+    </ScrollView>
+
+   <!-- <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        android:layout_below="@+id/scrollview"
+        app:menu="@menu/botton_navigation"
+        app:itemIconTint="@color/black"/>-->
+
