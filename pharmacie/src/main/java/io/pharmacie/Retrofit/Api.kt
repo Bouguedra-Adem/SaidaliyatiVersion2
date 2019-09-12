@@ -6,20 +6,17 @@ import io.pharmacie.models.Camand
 import io.pharmacie.models.Commune
 import io.pharmacie.models.User
 import io.pharmacie.models.pharmacy
-import io.reactivex.Observable
-import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
+import java.io.File
 
 interface Api {
 
@@ -44,7 +41,7 @@ interface Api {
 
     @Multipart
     @POST("/upload-avatar")
-    fun upload(@Part file: MultipartBody.Part): Call<ResponseUpload>
+    fun upload(@Part file: File): Call<ResponseUpload>
 
     @POST("/command")
     fun createCommand(@Body cmd: Camand): Call<ResponseMessage>
