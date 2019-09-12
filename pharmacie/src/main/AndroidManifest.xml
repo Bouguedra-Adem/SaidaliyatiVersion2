@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="io.pharmacie">
+    package="io.pharmacie">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ActivityComand"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAq-QaBVqCz09LnQwcr6Opjezfe9oKqcMQ"/>
-
+            android:value="AIzaSyAq-QaBVqCz09LnQwcr6Opjezfe9oKqcMQ" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
         <activity
-                android:name="io.pharmacie.MainActivity"
-                android:label="@string/app_name" >
+            android:name=".MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="io.pharmacie.LoginActivity" />
-        <activity android:name="io.pharmacie.SignupActivity"/>
-        <activity android:name="io.pharmacie.FilterVille"/>
-        <activity android:name="io.pharmacie.showPharmacies"/>
-        <activity android:name="io.pharmacie.Maps.MapMainActivity"/>
-
-
-
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".FilterVille" />
+        <activity android:name=".showPharmacies" />
+        <activity android:name=".Maps.MapMainActivity" />
     </application>
 
 </manifest>
