@@ -25,10 +25,15 @@ import java.io.IOException
 import java.io.OutputStream
 
 import io.pharmacie.Retrofit.Api
+import io.pharmacie.Retrofit.ResponseMessage
 import io.pharmacie.Retrofit.repo
 import io.pharmacie.models.Camand
+import io.pharmacie.models.Commune
 import kotlinx.android.synthetic.main.activity_comand.*
 import okhttp3.MultipartBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -50,7 +55,7 @@ class ActivityComand : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comand)
         checkPermission()
-        imageview =  image as ImageView
+        imageview = image as ImageView
         importeimg.setOnClickListener {
             choosePhotoFromGallary()
         }
@@ -79,7 +84,19 @@ class ActivityComand : AppCompatActivity() {
             val date = "$dayOfMonth-$month-$year"
             Log.e("adem", "ademmm")
             val cmd = Camand(titredemande!!.text.toString(), emailLoc!!, "En attente", file.name, date.toString())
-            val creatRespense=api.createCommand(cmd)
+            val creatRespense = api.createCommand(cmd)
+            creatRespense.enqueue(object : Callback<ResponseMessage> {
+                override fun onResponse(call: Call<ResponseMessage>, response: Response<ResponseMessage>) {
+                    val coms = response.body()
+                    Log.e("responecomand", response.toString())
+
+                }
+
+                override fun onFailure(call: Call<ResponseMessage>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                    //dialog.hide()
+                }
+            })
 
         }
     }

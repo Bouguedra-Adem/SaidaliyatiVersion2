@@ -43,7 +43,7 @@ class ActivityListCamand : AppCompatActivity() {
                 for (c in camand!!) {
                     Log.e("MUSTAPHADEBBIH",c.nomCmd)
 
-                    camands.add(c.nomCmd.toString())
+                    camands.add("Commande :"+c.nomCmd.toString()+"     "+"Etat Demmande:"+c.cmdState)
                 }
                 initializeView()
 
