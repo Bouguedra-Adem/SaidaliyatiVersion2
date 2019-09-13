@@ -1,26 +1,18 @@
 package io.pharmacie
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Global.putString
-import androidx.cardview.widget.CardView
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import butterknife.BindView
 import butterknife.ButterKnife
 import io.pharmacie.Maps.MapMainActivity
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_signup.*
-
-import kotlinx.android.synthetic.main.activity_signup.input_email
 
 
 class MainActivity : AppCompatActivity() {
@@ -113,6 +105,7 @@ class MainActivity : AppCompatActivity() {
         val con = pref.getBoolean("connected", false)
         Log.e("AHLAMTEST",con.toString())
         if(!con){
+
             card_view_camand.setVisibility(View.GONE)
             card_view_logout.setVisibility(View.GONE)
 
@@ -133,6 +126,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+
         }
 
 

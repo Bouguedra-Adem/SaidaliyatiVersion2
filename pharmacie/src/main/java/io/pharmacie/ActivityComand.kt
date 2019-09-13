@@ -14,7 +14,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
+import android.view.KeyEvent
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -25,8 +25,10 @@ import java.io.IOException
 import java.io.OutputStream
 
 import io.pharmacie.Retrofit.Api
+import io.pharmacie.Retrofit.repo
 import io.pharmacie.models.Camand
 import kotlinx.android.synthetic.main.activity_comand.*
+import okhttp3.MultipartBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
@@ -39,32 +41,35 @@ class ActivityComand : AppCompatActivity() {
     private val CAMERA = 2
     private val TAG = "MUSTAPHATESTCAMERA"
     internal var MY_PERMISSIONS_REQUEST_CODE = 123
+    var repoCommand: repo = repo()
      var retrofitInterface= Api.createAvatar()
 
 
-    internal var bitmapglobal: Bitmap? = null
+    var bitmapglobal:Bitmap ?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comand)
+        checkPermission()
         imageview =  image as ImageView
         importeimg.setOnClickListener {
             choosePhotoFromGallary()
         }
         send.setOnClickListener {
             //alert()
+
             val file: File = bitmapToFile(bitmapglobal!!)
             val retrofit = Retrofit.Builder()
                 .baseUrl(Api.Base_Url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            val api = retrofit.create(Api::class.java)
-            val response = api.upload(file)
+            val api = retrofit.create<Api>(Api::class.java!!)
+            val response = repoCommand.uploadFile(file)
             Log.e("RESPONSE", response.toString())
             Log.e("MUSTAPHAPATH", bitmapToFile(bitmapglobal!!).absolutePath)
             // repoCommand.downloadImage(imageview!!,bitmap)
             //imageview!!.setImageBitmap(bitmapglobal)
-            val pref = this!!.getSharedPreferences("fileName", Context.MODE_PRIVATE)
+            val pref = this!!.getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
             val emailLoc = pref.getString("email", "")
             var dayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH).toString()
             var month = Calendar.getInstance().get(Calendar.MONTH).toString()
@@ -298,6 +303,22 @@ class ActivityComand : AppCompatActivity() {
         builder.setPositiveButton("Continue", null);
         val dialog = builder.create()
         dialog.show()
+    }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            val intentprevious = Intent(applicationContext,MainActivity.PreviousClass)
+            startActivity(intentprevious)
+            finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+
+        }
+
+        // // TODO Auto-generated method stub
+        return super.onKeyDown(keyCode, event)
+
     }
 
 }
