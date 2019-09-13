@@ -41,4 +41,5 @@
     <string name="Password">Mot de passe</string>
     <string name="ConfirmerPassword">Confirmer le mot de passe</string>
     <string name="Annuler">Annuler</string>
+    <string name="Deconnecter">Disconnect</string>
 </resources>
