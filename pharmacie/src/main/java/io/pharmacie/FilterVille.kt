@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
@@ -26,6 +27,7 @@ class FilterVille : AppCompatActivity() {
     lateinit var _myListView: ListView
      lateinit var _mySpinner: Spinner
       var communes = ArrayList<Commune>()
+    var communeNames = ArrayList<String>()
     //List<Commune> ;
       var wilaya = arrayOf("All", "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Bejaia", "Biskra", "Bechar", "Blida", "Bouira", "Tamanrasset", "Tebéssa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saida", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Mèdéa", "Mostaganem", "Msila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bourdj Bou Arreridj", "Boumerdès", "Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenschla", "Souk Ahras", "Tipaza", "Mila", "Ain Defla", "Naama", "Ain Tèmouchent", "Ghardaia", "Relizane")
      lateinit var adapter:ArrayAdapter<Commune>
@@ -56,6 +58,7 @@ class FilterVille : AppCompatActivity() {
 
                 for (c in coms!!) {
                     communes.add(c)
+                    communeNames.add(c.nomCommune.toString())
                 }
                 initializeView()
                 dialog.hide()
@@ -72,7 +75,8 @@ class FilterVille : AppCompatActivity() {
         _mySpinner = findViewById(R.id.mySpinner)
         _mySpinner.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, wilaya)
         _myListView = findViewById(R.id.myListView)
-        _myListView.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communes)
+        Log.e("mustaphaamine",communeNames.toString())
+        _myListView.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communeNames)
         _mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -133,5 +137,7 @@ class FilterVille : AppCompatActivity() {
 
         private val REQUEST_SIGNUP = 0
         lateinit var commune: String
+
+
     }
 }
