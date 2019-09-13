@@ -14,6 +14,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
@@ -33,7 +34,7 @@ import java.util.*
 
 class ActivityComand : AppCompatActivity() {
     private val btn: Button? = null
-    private val imageview: ImageView? = null
+    private var imageview: ImageView? = null
     private val GALLERY = 1
     private val CAMERA = 2
     private val TAG = "MUSTAPHATESTCAMERA"
@@ -45,12 +46,12 @@ class ActivityComand : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comand)
-        checkPermission()
+        imageview =  image as ImageView
         importeimg.setOnClickListener {
             choosePhotoFromGallary()
         }
         send.setOnClickListener {
-            alert()
+            //alert()
             val file: File = bitmapToFile(bitmapglobal!!)
             val retrofit = Retrofit.Builder()
                 .baseUrl(Api.Base_Url)
@@ -275,8 +276,8 @@ class ActivityComand : AppCompatActivity() {
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_CODE -> {
                 // When request is cancelled, the results array are empty
-                if (((grantResults.size > 0) && (((grantResults[0]
-                            + grantResults[2]) == PackageManager.PERMISSION_GRANTED))))
+                if (((grantResults.size > 0) /*&& (((grantResults[0]
+                            + grantResults[2]) == PackageManager.PERMISSION_GRANTED))*/))
                 {
                     // Permissions are granted
                     Toast.makeText(this!!.applicationContext, "Permissions granted.", Toast.LENGTH_SHORT).show()

@@ -1,7 +1,7 @@
 package io.pharmacie.models
 
-class Commune(var nomCommune: String?, wilayacode: Int) {
-    var wiyalaCode: Int = 0
+class Commune(var nomCommune: String?, var wilayacode: Int) {
+  /*  var wiyalaCode: Int = 0
         private set
 
 
@@ -16,5 +16,5 @@ class Commune(var nomCommune: String?, wilayacode: Int) {
 
     fun setCodeWilaya(codeWilaya: Int) {
         this.wiyalaCode = codeWilaya
-    }
+    }*/
 }

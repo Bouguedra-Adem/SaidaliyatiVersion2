@@ -118,8 +118,10 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 app:cardElevation="8dp"
+
                 app:cardCornerRadius="8dp"
                 android:id="@+id/card_view_singup">
+
 
             <LinearLayout
                     android:layout_gravity="center_horizontal|center_vertical"
