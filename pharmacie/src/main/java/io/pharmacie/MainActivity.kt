@@ -61,19 +61,8 @@ class MainActivity : AppCompatActivity() {
             ButterKnife.bind(this)
         val decorView = window.decorView
         hideSystemUI(decorView)
-        val pref = this!!.getSharedPreferences("file", Context.MODE_PRIVATE)
-        with (pref.edit()) {
-            putBoolean("connected",false)
-            //putString("email",emailadr.text.toString())
-           // putString("pwd",motdepass.text.toString())
-            commit()
-        }
 
-        val con = pref.getBoolean("connected", false)
-        if (con) {
-            Log.e("con=",con.toString())
-            card_view_oncall.isEnabled = false
-        }
+
         card_view_login!!.setOnClickListener {
             // Finish the registration screen and return to the Login activity
             PreviousClass = MainActivity::class.java
@@ -124,9 +113,26 @@ class MainActivity : AppCompatActivity() {
         val con = pref.getBoolean("connected", false)
         Log.e("AHLAMTEST",con.toString())
         if(!con){
-            orderManager.setVisibility(View.INVISIBLE)
+            card_view_camand.setVisibility(View.GONE)
+            card_view_logout.setVisibility(View.GONE)
+
         }else{
-            orderManager.setVisibility(View.VISIBLE)
+            card_view_camand.setVisibility(View.VISIBLE)
+            card_view_logout.setVisibility(View.VISIBLE)
+            card_view_singup.setVisibility(View.GONE)
+            card_view_login.setVisibility(View.GONE)
+        }
+
+        card_view_logout.setOnClickListener {
+            with(pref.edit()){
+                putBoolean("connected", false).commit()
+                putString("email", null).commit()
+                putString("pwd", null).commit()
+            }
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
 
 

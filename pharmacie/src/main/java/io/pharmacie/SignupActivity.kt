@@ -27,12 +27,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SignupActivity : AppCompatActivity() {
 
-    /* internal val accountSid = "AC611f2652a8f2262f662a0308bb9f7cd5"
-    internal val authToken = "7cd41eb1ae681c57c89c0c5178f135de"
-    internal val fromPhoneNumber = "+12012318756"
-    internal val numbterLetterPwd = 3
-    */
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -41,13 +35,15 @@ class SignupActivity : AppCompatActivity() {
         val decorView = window.decorView
         MainActivity.hideSystemUI(decorView)
 
+        val code = generatePwd(4)
+
         btn_signup!!.setOnClickListener {
             val user = User(
                 input_lastname!!.text!!.toString(),
                 input_firstname!!.text!!.toString(),
                 input_email!!.text!!.toString(),
                 input_mobile!!.text!!.toString(),
-                input_NSS!!.text!!.toString(),"JJJJ"
+                input_NSS!!.text!!.toString(),code
                 //generatePwd(6)
             )
 
@@ -68,7 +64,7 @@ class SignupActivity : AppCompatActivity() {
                         with(pref.edit()){
                             putBoolean("connected", true).commit()
                             putString("email",  input_email!!.text!!.toString()).commit()
-                            putString("pwd", "JJJJ").commit()
+                            putString("pwd", code).commit()
                         }
                         Toast.makeText(this@SignupActivity, repense?.message.toString(), Toast.LENGTH_SHORT).show()
                         val intent = Intent(applicationContext, ConfirmationActivity::class.java)

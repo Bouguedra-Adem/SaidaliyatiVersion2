@@ -70,7 +70,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
-            android:text="@string/login"/>
+            android:text="@string/confirmer"/>
 
     <TextView android:id="@+id/link_Anuller"
               android:layout_width="fill_parent"

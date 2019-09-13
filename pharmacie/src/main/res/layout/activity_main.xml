@@ -198,7 +198,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:id="@+id/orderManager"
+                android:id="@+id/card_view_camand"
                 app:cardElevation="8dp"
                 app:cardCornerRadius="8dp" android:saveEnabled="false">
 
@@ -230,36 +230,42 @@
 
         <!-- column 2 -->
 
-        <!--  <android.support.v7.widget.CardView
-              android:layout_width="0dp"
-              android:layout_height="0dp"
-              android:layout_columnWeight="1"
-              android:layout_rowWeight="1"
-              android:layout_marginBottom="16dp"
-              android:layout_marginLeft="16dp"
-              android:layout_marginRight="16dp"
-              app:cardElevation="8dp"
-              app:cardCornerRadius="8dp">
+        <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/card_view_logout"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="8dp" android:saveEnabled="false">
 
-              <LinearLayout
-                  android:layout_gravity="center_horizontal|center_vertical"
-                  android:orientation="vertical"
-                  android:layout_margin="16dp"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content">
+            <LinearLayout
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                  <ImageView
-                      android:src="@drawable/ic_plus"
-                      android:layout_gravity="center_horizontal|center_vertical"
-                      android:layout_width="40dp"
-                      android:layout_height="40dp" />
+                <ImageView
+                        android:src="@drawable/ic_logout"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"/>
+                <TextView
+                        android:text="@string/logout"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
 
-              </LinearLayout>
-
-
-          </android.support.v7.widget.CardView> -->
-
+        </androidx.cardview.widget.CardView>
     </GridLayout>
 
 

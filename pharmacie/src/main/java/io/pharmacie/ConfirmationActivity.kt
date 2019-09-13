@@ -37,61 +37,73 @@ class ConfirmationActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
 
-        btn_Confirm!!.setOnClickListener {
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Api.Base_Url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            btn_Confirm!!.setOnClickListener {
+                val retrofit = Retrofit.Builder()
+                    .baseUrl(Api.Base_Url)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
 
-            val api = retrofit.create(Api::class.java)
-            val pref = getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
-
-
-
-            if(input_password_confirmation!!.text!!.toString()==input_password_user!!.text!!.toString()){
-
-                val emailUser = pref.getString("email", "NONE")
+                val api = retrofit.create(Api::class.java)
+                val pref = getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
 
 
-                // BEGIN
-                val call = api.ConfirmationCode(emailUser,Code_input!!.text!!.toString() ,input_password_confirmation!!.text!!.toString())
-                call.enqueue(object : Callback<ResponseMessage> {
-                    override fun onResponse(call: Call<ResponseMessage>, response: Response<ResponseMessage>) {
-                        val repense = response.body()
-                        val result = repense?.result
-                        if (result!!) {
-                            val pref = getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
-                            with(pref.edit()) {
-                                putBoolean("connected",true).commit()
-                                putString("email",emailUser).commit()
-                                putString("pwd",input_password_confirmation!!.text!!.toString()).commit()
+
+                if (input_password_confirmation!!.text!!.toString() == input_password_user!!.text!!.toString()) {
+
+                    val emailUser = pref.getString("email", "NONE")
+
+
+                    // BEGIN
+                    val call = api.ConfirmationCode(
+                        emailUser,
+                        Code_input!!.text!!.toString(),
+                        input_password_confirmation!!.text!!.toString()
+                    )
+                    call.enqueue(object : Callback<ResponseMessage> {
+                        override fun onResponse(call: Call<ResponseMessage>, response: Response<ResponseMessage>) {
+                            val repense = response.body()
+                            val result = repense?.result
+                            if (result!!) {
+                                val pref = getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
+                                with(pref.edit()) {
+                                    putBoolean("connected", true).commit()
+                                    putString("email", emailUser).commit()
+                                    putString("pwd", input_password_confirmation!!.text!!.toString()).commit()
+                                }
+                                Toast.makeText(applicationContext, repense!!.message, Toast.LENGTH_SHORT).show()
+                                val intent = Intent(applicationContext, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+                            } else {
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Il y a une erreur dans l'email ou le mot de passe",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
                             }
-                            Toast.makeText(applicationContext,repense!!.message , Toast.LENGTH_SHORT).show()
-                            val intent = Intent(applicationContext, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
-                        } else {
-                            Toast.makeText(
-                                applicationContext,
-                                "Il y a une erreur dans l'email ou le mot de passe",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
                         }
-                    }
 
-                    override fun onFailure(call: Call<ResponseMessage>, t: Throwable) {
-                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-                    }
-                })
-            }else{
-                Toast.makeText(applicationContext, "Le mot de passe et le confirmation ne sont pas compatible", Toast.LENGTH_SHORT).show()
-            }
-            // END
+                        override fun onFailure(call: Call<ResponseMessage>, t: Throwable) {
+                            Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Le mot de passe et le confirmation ne sont pas compatible",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                // END
+
+
 
 
         }
+
+
 
 
 
