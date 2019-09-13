@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
+import androidx.core.app.NotificationCompat.EXTRA_PEOPLE
 
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
@@ -24,6 +25,7 @@ import java.util.ArrayList
 import io.pharmacie.Maps.MapMainActivity
 import io.pharmacie.Retrofit.Api
 import io.pharmacie.models.pharmacy
+import kotlinx.android.synthetic.main.pharmacydetail_layout.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,10 +54,10 @@ class showPharmacies : AppCompatActivity() {
             .build()
 
         val dialog = ProgressDialog(this)
-        dialog.setMessage(resources.getString(R.string.loading))
+       /* dialog.setMessage(resources.getString(R.string.loading))
         dialog.setCancelable(false)
         dialog.setInverseBackgroundForced(false)
-        dialog.show()
+        dialog.show()*/
         val api = retrofit.create(Api::class.java)
         val call = api.getPharmacies(FilterVille.commune)
         call.enqueue(object : Callback<List<pharmacy>> {
@@ -86,27 +88,42 @@ class showPharmacies : AppCompatActivity() {
             val pharmacydetail_layout = LayoutInflater.from(this)
                 .inflate(R.layout.pharmacydetail_layout, null)
 
-            val _ownerContent = pharmacydetail_layout.findViewById<TextView>(R.id.ownerContent)
+           /* val _ownerContent = pharmacydetail_layout.findViewById<TextView>(R.id.ownerContent)
             val _adressContent = pharmacydetail_layout.findViewById<TextView>(R.id.adressContent)
             val _worktimeContent = pharmacydetail_layout.findViewById<TextView>(R.id.worktimeContent)
             val _phoneNumberContent = pharmacydetail_layout.findViewById<TextView>(R.id.phoneNumberContent)
             val _caissConvContent = pharmacydetail_layout.findViewById<TextView>(R.id.caissConvContent)
             val _lienfcbkContent = pharmacydetail_layout.findViewById<TextView>(R.id.lienfcbkContent)
             // TextView _lienMapContent = pharmacydetail_layout.findViewById(R.id.lienMapContent);
-            val _datagardContent = pharmacydetail_layout.findViewById<TextView>(R.id.datagardContent)
+            val _datagardContent = pharmacydetail_layout.findViewById<TextView>(R.id.datagardContent)*/
 
             for (pha in pharmacies)
                 if (pha.toString() == (view as TextView).text.toString()) {
-                    _ownerContent.text = pha.toString()
-                    _adressContent.text = pha.adresse
-                    _worktimeContent.text = pha.heure
-                    _phoneNumberContent.text = pha.numeroTelephone
-                    _caissConvContent.text = pha.caisseConventionnee
-                    _lienfcbkContent.text = pha.facebookUrl
+                    MainActivity.PreviousClass = showPharmacies::class.java
+                    val intent = Intent(applicationContext, detail_pharma::class.java)
+                    intent.putExtra("name",pha.nomPrenomPharmacien)
+                    intent.putExtra("adr",pha.adresse)
+                    intent.putExtra("heure",pha.heure)
+                    intent.putExtra("tlf",pha.numeroTelephone)
+                    intent.putExtra("caisse",pha.caisseConventionnee)
+                    intent.putExtra("fb",pha.facebookUrl)
+                    intent.putExtra("garde",pha.dateGarde)
+                    startActivity(intent)
+                    finish()
+                   /* overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+                    ownerContent.text = pha.toString()
+                    adressContent.text = pha.adresse
+                    worktimeContent.text = pha.heure
+                    phoneNumberContent.text = pha.numeroTelephone
+                    caissConvContent.text = pha.caisseConventionnee
+                    lienfcbkContent.text = pha.facebookUrl
                     // _lienMapContent.setText(getResources().getString(R.string.lienMap));
-                    _datagardContent.text = pha.dateGarde
+                    datagardContent.text = pha.dateGarde*/
                 }
 
+           /*         /*val dialogFragment = Pharma_detail(data)
+                    dialogFragment.allowEnterTransitionOverlap
+                    dialogFragment.show(fragment.childFragmentManager, "simple dialog")*/
             MaterialStyledDialog.Builder(this)
                 .setIcon(R.drawable.ic_detail)
                 .setTitle(R.string.details)
@@ -118,15 +135,15 @@ class showPharmacies : AppCompatActivity() {
                 .onNegative { dialog, which -> dialog.dismiss() }
                 .setPositiveText(resources.getString(R.string.positiveText))
                 .onPositive { dialog, which ->
-                    MapMainActivity.showPharmacy = _adressContent.text.toString()
-                    MapMainActivity.pharmacyOwnerName = _ownerContent.text.toString()
+                    MapMainActivity.showPharmacy = adressContent.text.toString()
+                    MapMainActivity.pharmacyOwnerName = ownerContent.text.toString()
                     MapMainActivity.movingCamera = "SHOWPHARMACY"
                     val intent = Intent(applicationContext, MapMainActivity::class.java)
                     startActivity(intent)
                     finish()
                     overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
                 }
-                .show()
+                .show()*/
         }
     }
 
