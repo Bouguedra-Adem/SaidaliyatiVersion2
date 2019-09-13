@@ -1,9 +1,11 @@
 package io.pharmacie
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.Global.putString
 import androidx.cardview.widget.CardView
 import android.util.Log
 import android.view.KeyEvent
@@ -16,6 +18,7 @@ import butterknife.ButterKnife
 import io.pharmacie.Maps.MapMainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_signup.*
+import androidx.core.content.edit as edit1
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,7 +50,19 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         val decorView = window.decorView
         hideSystemUI(decorView)
+        val pref = this!!.getSharedPreferences("fileName", Context.MODE_PRIVATE)
+        with (pref.edit()) {
+            putBoolean("connected",false)
+            //putString("email",emailadr.text.toString())
+           // putString("pwd",motdepass.text.toString())
+            commit()
+        }
 
+        val con = pref.getBoolean("connected", false)
+        if (con) {
+            Log.e("con=",con.toString())
+            card_view_oncall.isEnabled = false
+        }
         card_view_login!!.setOnClickListener {
             // Finish the registration screen and return to the Login activity
             PreviousClass = MainActivity::class.java
@@ -82,6 +97,13 @@ class MainActivity : AppCompatActivity() {
                 finish()
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
             }
+        }
+        card_view_camand.setOnClickListener {
+            PreviousClass = MainActivity::class.java
+            val intent = Intent(applicationContext, ActivityListCamand::class.java)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
 
     }

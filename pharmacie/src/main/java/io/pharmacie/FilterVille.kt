@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
@@ -25,10 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FilterVille : AppCompatActivity() {
     lateinit var _myListView: ListView
      lateinit var _mySpinner: Spinner
-      var communes = ArrayList<Commune>()
+      var communes = ArrayList<String>()
+    var array=ArrayList<String>()
     //List<Commune> ;
+
       var wilaya = arrayOf("All", "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Bejaia", "Biskra", "Bechar", "Blida", "Bouira", "Tamanrasset", "Tebéssa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saida", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Mèdéa", "Mostaganem", "Msila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bourdj Bou Arreridj", "Boumerdès", "Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenschla", "Souk Ahras", "Tipaza", "Mila", "Ain Defla", "Naama", "Ain Tèmouchent", "Ghardaia", "Relizane")
-     lateinit var adapter:ArrayAdapter<Commune>
+     lateinit var adapter:ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,13 +52,15 @@ class FilterVille : AppCompatActivity() {
         dialog.setInverseBackgroundForced(false)
         dialog.show()
 
-        val call = api.communes
+        val call = api.communes()
         call.enqueue(object : Callback<List<Commune>> {
             override fun onResponse(call: Call<List<Commune>>, response: Response<List<Commune>>) {
                 val coms = response.body()
 
                 for (c in coms!!) {
-                    communes.add(c)
+                    Log.e("MUSTAPHADEBBIH",c.nomCommune)
+
+                    communes.add(c.nomCommune.toString())
                 }
                 initializeView()
                 dialog.hide()
@@ -72,6 +77,9 @@ class FilterVille : AppCompatActivity() {
         _mySpinner = findViewById(R.id.mySpinner)
         _mySpinner.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, wilaya)
         _myListView = findViewById(R.id.myListView)
+
+
+        Log.e("mustaphaamine",array.toString())
         _myListView.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communes)
         _mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -101,14 +109,14 @@ class FilterVille : AppCompatActivity() {
         val coms = ArrayList<Commune>()
         if (wilayacode == 0) {
             adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communes)
-        } else {
+        }/* else {
             for (commune in communes) {
-                if (commune.wiyalaCode == wilayacode) {
+                if (commune.wilayacode == wilayacode) {
                     coms.add(commune)
                 }
             }
             adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, coms)
-        }
+        }*/
         _myListView.adapter = adapter
     }
 

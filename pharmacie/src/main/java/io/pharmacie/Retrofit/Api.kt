@@ -20,8 +20,8 @@ import java.io.File
 
 interface Api {
 
-    @get:GET("/communes")
-    val communes: Call<List<Commune>>
+    @GET("/communes")
+    fun communes() : Call<List<Commune>>
     //String Base_Url = "http://10.0.2.2:3000/";
 
     @GET("/login/{useremail}/{pwd}")
@@ -63,7 +63,7 @@ interface Api {
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://ancient-harbor-80131.herokuapp.com/")
+                .baseUrl(Base_Url)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

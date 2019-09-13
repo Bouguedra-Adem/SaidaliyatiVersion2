@@ -118,7 +118,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 app:cardElevation="8dp"
-                app:cardCornerRadius="8dp" android:saveEnabled="false">
+                app:cardCornerRadius="8dp" android:id="@+id/card_view_camand">
 
             <LinearLayout
                     android:layout_gravity="center_horizontal|center_vertical"
