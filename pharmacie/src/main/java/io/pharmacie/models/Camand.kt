@@ -1,6 +1,6 @@
 package io.pharmacie.models
 
-class Camand(
+data class Camand(
     var nomCmd: String?,
     var userEmail: String?,
     var cmdState: String?,
