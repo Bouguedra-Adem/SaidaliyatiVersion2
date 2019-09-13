@@ -1,5 +1,6 @@
 package io.pharmacie
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,7 +32,9 @@ class ActivityListCamand : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val api = retrofit.create<Api>(Api::class.java!!)
-        val call = api.getCmdUserEmail("fm_debbih@esi.dz")
+        val pref = this!!.getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
+        val emailLoc = pref.getString("email", "")
+        val call = api.getCmdUserEmail(emailLoc)
         call.enqueue(object : Callback<List<Camand>> {
 
 

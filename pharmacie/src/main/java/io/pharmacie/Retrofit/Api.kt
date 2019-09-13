@@ -6,6 +6,7 @@ import io.pharmacie.models.Camand
 import io.pharmacie.models.Commune
 import io.pharmacie.models.User
 import io.pharmacie.models.pharmacy
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -41,7 +42,9 @@ interface Api {
 
     @Multipart
     @POST("/upload-avatar")
-    fun upload(@Part file: File): Call<ResponseUpload>
+    fun upload(
+        @Part file: MultipartBody.Part
+    ): Call<ResponseUpload>
 
     @POST("/command")
     fun createCommand(@Body cmd: Camand): Call<ResponseMessage>

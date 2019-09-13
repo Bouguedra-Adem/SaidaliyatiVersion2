@@ -1,26 +1,18 @@
 package io.pharmacie
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings.Global.putString
-import androidx.cardview.widget.CardView
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import butterknife.BindView
 import butterknife.ButterKnife
 import io.pharmacie.Maps.MapMainActivity
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_signup.*
-
-import kotlinx.android.synthetic.main.activity_signup.input_email
 
 
 class MainActivity : AppCompatActivity() {
@@ -61,19 +53,7 @@ class MainActivity : AppCompatActivity() {
             ButterKnife.bind(this)
         val decorView = window.decorView
         hideSystemUI(decorView)
-        val pref = this!!.getSharedPreferences("file", Context.MODE_PRIVATE)
-        with (pref.edit()) {
-            putBoolean("connected",false)
-            //putString("email",emailadr.text.toString())
-           // putString("pwd",motdepass.text.toString())
-            commit()
-        }
 
-        val con = pref.getBoolean("connected", false)
-        if (con) {
-            Log.e("con=",con.toString())
-            card_view_oncall.isEnabled = false
-        }
         card_view_login!!.setOnClickListener {
             // Finish the registration screen and return to the Login activity
             PreviousClass = MainActivity::class.java
@@ -124,9 +104,9 @@ class MainActivity : AppCompatActivity() {
         val con = pref.getBoolean("connected", false)
         Log.e("AHLAMTEST",con.toString())
         if(!con){
-            orderManager.setVisibility(View.INVISIBLE)
+            card_view_camand.setVisibility(View.INVISIBLE)
         }else{
-            orderManager.setVisibility(View.VISIBLE)
+            card_view_camand.setVisibility(View.VISIBLE)
         }
 
 

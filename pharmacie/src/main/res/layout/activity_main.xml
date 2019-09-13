@@ -198,7 +198,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:id="@+id/orderManager"
+                android:id="@+id/card_view_camand"
                 app:cardElevation="8dp"
                 app:cardCornerRadius="8dp" android:saveEnabled="false">
 
