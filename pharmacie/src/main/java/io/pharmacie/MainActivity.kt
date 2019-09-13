@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         val decorView = window.decorView
         hideSystemUI(decorView)
 
+
         card_view_login!!.setOnClickListener {
             // Finish the registration screen and return to the Login activity
             PreviousClass = MainActivity::class.java
@@ -104,9 +105,28 @@ class MainActivity : AppCompatActivity() {
         val con = pref.getBoolean("connected", false)
         Log.e("AHLAMTEST",con.toString())
         if(!con){
-            card_view_camand.setVisibility(View.INVISIBLE)
+
+            card_view_camand.setVisibility(View.GONE)
+            card_view_logout.setVisibility(View.GONE)
+
         }else{
             card_view_camand.setVisibility(View.VISIBLE)
+            card_view_logout.setVisibility(View.VISIBLE)
+            card_view_singup.setVisibility(View.GONE)
+            card_view_login.setVisibility(View.GONE)
+        }
+
+        card_view_logout.setOnClickListener {
+            with(pref.edit()){
+                putBoolean("connected", false).commit()
+                putString("email", null).commit()
+                putString("pwd", null).commit()
+            }
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+
         }
 
 
