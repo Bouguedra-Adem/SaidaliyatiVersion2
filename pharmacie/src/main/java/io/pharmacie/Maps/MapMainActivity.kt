@@ -221,7 +221,7 @@ class MapMainActivity : AppCompatActivity(), OnMapReadyCallback {
 
          val formattedDate = df.format(c)
 
-         Log.d(TAG, "the date of today  :$formattedDate")
+
 
          //mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(this,
@@ -231,17 +231,15 @@ class MapMainActivity : AppCompatActivity(), OnMapReadyCallback {
                 // Got last known location. In some rare situations this can be null.
                 // 3
                 if (location != null) {
-                    Log.d(TAG, "GET MY CURRENT LOCATION INSIDE")
+
 
                     val currentLocation = location
-                    Log.d(TAG, "onComplete : found location!")
-                    // String[] pharmacyAddresses = {"91 BOULEVARD KRIM BELKACEM ALGER CENTRE","18 RUE MELHOUSE ALGER CENTRE","18 RUE MELHOUSE ALGER CENTRE",
-                    //     "33 RUE DIDOUCHE MOURAD ALGER CENTRE","37 AVENUE DES TROIS FRERES MADANI EL MADANIA","CITE DIAR SAADA"};
-                    var distance = 0.0
+
+                      var distance = 0.0
                     var distanceCaculated: Double
                     var closectPHarmacy: Address? = null
                     var list: List<Address> = ArrayList()
-                    Log.d(TAG, "THIS IS CLOSENT PHARMACY" + adresses[0])
+
                     for (adress in adresses) {
                         try {
                             if (adress != null) {

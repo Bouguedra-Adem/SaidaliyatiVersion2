@@ -37,12 +37,9 @@ class repo {
         val call = retrofitInterface.upload(body)
         call.enqueue(object: Callback<ResponseUpload> {
             override fun onResponse(call: Call<ResponseUpload>, response:retrofit2.Response<ResponseUpload>) {
-                Log.e("MUSTAPHAUPLOAD", "success")
-                Log.e("MUSTAPHAUPLOAD", response.message())
-                Log.e("MUSTAPHAUPLOAD", file.getName())
+
             }
             override fun onFailure(call: Call<ResponseUpload>, t:Throwable) {
-                Log.e("MUSTAPHAUPLOAD", t.message)
             }
         })
     }

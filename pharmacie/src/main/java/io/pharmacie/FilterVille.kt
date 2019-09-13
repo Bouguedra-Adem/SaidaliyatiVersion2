@@ -62,7 +62,6 @@ class FilterVille : AppCompatActivity() {
                 liscommune= coms as ArrayList<Commune>
                 for (c in coms!!) {
 
-                    Log.e("MUSTAPHADEBBIH",c.codeWilaya.toString())
 
                     communes.add(c.nomCommune.toString())
 
@@ -84,7 +83,7 @@ class FilterVille : AppCompatActivity() {
         _myListView = findViewById(R.id.myListView)
 
 
-        Log.e("mustaphaamine",array.toString())
+
         _myListView.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communes)
 
         _mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

@@ -44,7 +44,7 @@ class ActivityComand : AppCompatActivity() {
     private var imageview: ImageView? = null
     private val GALLERY = 1
     private val CAMERA = 2
-    private val TAG = "MUSTAPHATESTCAMERA"
+    private val TAG = "AHLAM"
     internal var MY_PERMISSIONS_REQUEST_CODE = 123
     var repoCommand: repo = repo()
      var retrofitInterface= Api.createAvatar()
