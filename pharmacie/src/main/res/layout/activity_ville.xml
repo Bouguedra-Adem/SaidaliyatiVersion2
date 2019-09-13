@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/modeoffline"
+            android:visibility="gone"/>
     <Spinner
-        android:id="@+id/mySpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_centerHorizontal="true"
-        android:background="@android:drawable/editbox_dropdown_light_frame" />
+            android:id="@+id/mySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_centerHorizontal="true"
+            android:background="@android:drawable/editbox_dropdown_light_frame" android:visibility="visible"/>
 
     <ListView
-        android:id="@+id/myListView"
-        android:layout_below="@id/mySpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            android:id="@+id/myListView"
+            android:layout_below="@id/mySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:visibility="visible"/>
 </LinearLayout>

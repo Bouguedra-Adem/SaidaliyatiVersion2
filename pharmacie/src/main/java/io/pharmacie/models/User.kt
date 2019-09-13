@@ -1,6 +1,6 @@
 package io.pharmacie.models
 
-class User(
+data class User(
     private val lastname: String,
     private val firstname: String,
     private val email: String,

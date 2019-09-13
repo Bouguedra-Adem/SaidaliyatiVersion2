@@ -24,6 +24,7 @@ import java.util.ArrayList
 
 import io.pharmacie.Maps.MapMainActivity
 import io.pharmacie.Retrofit.Api
+import io.pharmacie.models.RoomDatabase.RepoPharmacie_Local
 import io.pharmacie.models.pharmacy
 import kotlinx.android.synthetic.main.pharmacydetail_layout.*
 import retrofit2.Call
@@ -100,6 +101,8 @@ class showPharmacies : AppCompatActivity() {
             for (pha in pharmacies)
                 if (pha.toString() == (view as TextView).text.toString()) {
                     MainActivity.PreviousClass = showPharmacies::class.java
+                    val RepoLocal= RepoPharmacie_Local(application)
+                    RepoLocal.insertPharmacie(pha)
                     val intent = Intent(applicationContext, detail_pharma::class.java)
                     intent.putExtra("name",pha.nomPrenomPharmacien)
                     intent.putExtra("adr",pha.adresse)
