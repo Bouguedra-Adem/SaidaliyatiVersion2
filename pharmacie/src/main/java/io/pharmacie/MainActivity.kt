@@ -16,18 +16,24 @@ import com.google.android.gms.common.GoogleApiAvailability
 import butterknife.BindView
 import butterknife.ButterKnife
 import io.pharmacie.Maps.MapMainActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_signup.*
-import androidx.core.content.edit as edit1
+
+import kotlinx.android.synthetic.main.activity_signup.input_email
+
 
 class MainActivity : AppCompatActivity() {
 
 
     //everything is fine and the user can make map requests
     //an error occured but we can resolve it
+
     val isServicesOK: Boolean
         get() {
             Log.d(TAG, "isServicesOK: checking google services version")
+
+
             val availabe = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this@MainActivity)
             if (availabe == ConnectionResult.SUCCESS) {
                 Log.d(TAG, "isServicesOK: Google Play Services is working")
@@ -44,10 +50,15 @@ class MainActivity : AppCompatActivity() {
             return false
         }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+
+       // val pref = getSharedPreferences("file", Context.MODE_PRIVATE)
+
+
+            ButterKnife.bind(this)
         val decorView = window.decorView
         hideSystemUI(decorView)
         val pref = this!!.getSharedPreferences("file", Context.MODE_PRIVATE)
@@ -71,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             finish()
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
+
 
        card_view_showbycity!!.setOnClickListener {
             PreviousClass = MainActivity::class.java
@@ -106,6 +118,19 @@ class MainActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
 
+
+
+        val pref = getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
+        val con = pref.getBoolean("connected", false)
+        Log.e("AHLAMTEST",con.toString())
+        if(!con){
+            orderManager.setVisibility(View.INVISIBLE)
+        }else{
+            orderManager.setVisibility(View.VISIBLE)
+        }
+
+
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -131,6 +156,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var PreviousClass: Class<*>
 
 
+
         fun hideSystemUI(decorView: View) {
             // Enables regular immersive mode.
             // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
@@ -147,4 +173,6 @@ class MainActivity : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
         }
     }
+
+
 }

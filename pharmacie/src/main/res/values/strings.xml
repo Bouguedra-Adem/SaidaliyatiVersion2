@@ -40,8 +40,15 @@
 
 
 
+
     <string name="title_activity_detail_pharma">DetailPharma</string>
     <string name="map">Map</string>
     <string name="camandd">Creer Commande</string>
     <string name="retour">Retour</string>
+
+    <string name="ConfirmationCode">Code de Confirmation</string>
+    <string name="Password">Mot de passe</string>
+    <string name="ConfirmerPassword">Confirmer le mot de passe</string>
+    <string name="Annuler">Annuler</string>
+
 </resources>

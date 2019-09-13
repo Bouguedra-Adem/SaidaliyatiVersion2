@@ -26,8 +26,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class FilterVille : AppCompatActivity() {
     lateinit var _myListView: ListView
      lateinit var _mySpinner: Spinner
+
       var communes = ArrayList<String>()
     var array=ArrayList<String>()
+
     //List<Commune> ;
 
       var wilaya = arrayOf("All", "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Bejaia", "Biskra", "Bechar", "Blida", "Bouira", "Tamanrasset", "Tebéssa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saida", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Mèdéa", "Mostaganem", "Msila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bourdj Bou Arreridj", "Boumerdès", "Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenschla", "Souk Ahras", "Tipaza", "Mila", "Ain Defla", "Naama", "Ain Tèmouchent", "Ghardaia", "Relizane")
@@ -58,9 +60,11 @@ class FilterVille : AppCompatActivity() {
                 val coms = response.body()
 
                 for (c in coms!!) {
+
                     Log.e("MUSTAPHADEBBIH",c.nomCommune)
 
                     communes.add(c.nomCommune.toString())
+
                 }
                 initializeView()
                 //dialog.hide()
@@ -81,6 +85,7 @@ class FilterVille : AppCompatActivity() {
 
         Log.e("mustaphaamine",array.toString())
         _myListView.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communes)
+
         _mySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -141,5 +146,7 @@ class FilterVille : AppCompatActivity() {
 
         private val REQUEST_SIGNUP = 0
         lateinit var commune: String
+
+
     }
 }

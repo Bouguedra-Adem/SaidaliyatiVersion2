@@ -118,7 +118,10 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 app:cardElevation="8dp"
-                app:cardCornerRadius="8dp" android:id="@+id/card_view_camand">
+
+                app:cardCornerRadius="8dp"
+                android:id="@+id/card_view_singup">
+
 
             <LinearLayout
                     android:layout_gravity="center_horizontal|center_vertical"
@@ -128,22 +131,23 @@
                     android:layout_height="wrap_content">
 
                 <ImageView
-                        android:src="@drawable/ic_commande"
+                        android:src="@drawable/ic_register"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="40dp"
-                        android:layout_height="40dp"/>
+                        android:layout_height="40dp" />
                 <TextView
-                        android:text="@string/commande"
+                        android:text="@string/signup"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="16sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
             </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
+
 
         <!-- column 2 -->
         <androidx.cardview.widget.CardView
@@ -187,41 +191,42 @@
         <!-- column 1 -->
 
         <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            app:cardElevation="8dp"
-            app:cardCornerRadius="8dp"
-            android:id="@+id/card_view_singup">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/orderManager"
+                app:cardElevation="8dp"
+                app:cardCornerRadius="8dp" android:saveEnabled="false">
 
             <LinearLayout
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:orientation="vertical"
-                android:layout_margin="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:orientation="vertical"
+                    android:layout_margin="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
                 <ImageView
-                    android:src="@drawable/ic_register"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp" />
+                        android:src="@drawable/ic_commande"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"/>
                 <TextView
-                    android:text="@string/signup"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/black"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                        android:text="@string/commande"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
+
 
         <!-- column 2 -->
 
