@@ -28,11 +28,12 @@ class FilterVille : AppCompatActivity() {
      lateinit var _mySpinner: Spinner
 
       var communes = ArrayList<String>()
+    var liscommune=ArrayList<Commune>()
     var array=ArrayList<String>()
 
     //List<Commune> ;
 
-      var wilaya = arrayOf("All", "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Bejaia", "Biskra", "Bechar", "Blida", "Bouira", "Tamanrasset", "Tebéssa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saida", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Mèdéa", "Mostaganem", "Msila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bourdj Bou Arreridj", "Boumerdès", "Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenschla", "Souk Ahras", "Tipaza", "Mila", "Ain Defla", "Naama", "Ain Tèmouchent", "Ghardaia", "Relizane")
+      var wilaya = arrayOf("TOUS LES WILAYA", "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Bejaia", "Biskra", "Bechar", "Blida", "Bouira", "Tamanrasset", "Tebéssa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", "Djelfa", "Jijel", "Sétif", "Saida", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", "Constantine", "Mèdéa", "Mostaganem", "Msila", "Mascara", "Ouargla", "Oran", "El Bayadh", "Illizi", "Bourdj Bou Arreridj", "Boumerdès", "Tarf", "Tindouf", "Tissemsilt", "El Oued", "Khenschla", "Souk Ahras", "Tipaza", "Mila", "Ain Defla", "Naama", "Ain Tèmouchent", "Ghardaia", "Relizane")
      lateinit var adapter:ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,10 +59,10 @@ class FilterVille : AppCompatActivity() {
         call.enqueue(object : Callback<List<Commune>> {
             override fun onResponse(call: Call<List<Commune>>, response: Response<List<Commune>>) {
                 val coms = response.body()
-
+                liscommune= coms as ArrayList<Commune>
                 for (c in coms!!) {
 
-                    Log.e("MUSTAPHADEBBIH",c.nomCommune)
+                    Log.e("MUSTAPHADEBBIH",c.codeWilaya.toString())
 
                     communes.add(c.nomCommune.toString())
 
@@ -111,17 +112,22 @@ class FilterVille : AppCompatActivity() {
     }
 
     private fun getSelectectWilayaData(wilayacode: Int) {
-        val coms = ArrayList<Commune>()
+        var coms = ArrayList<String>()
         if (wilayacode == 0) {
             adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, communes)
-        }/* else {
-            for (commune in communes) {
-                if (commune.wilayacode == wilayacode) {
-                    coms.add(commune)
+        }else {
+            Log.e("wilaya",wilayacode.toString())
+            Log.e("listcommun",liscommune.toString())
+            for (commune in liscommune) {
+                Log.e("listcommun",commune.nomCommune)
+                Log.e("listcommuncode",commune.codeWilaya.toString())
+                if (commune.codeWilaya == wilayacode) {
+                    Log.e("listcommun",commune.nomCommune)
+                    coms.add(commune.nomCommune.toString())
                 }
             }
             adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, coms)
-        }*/
+        }
         _myListView.adapter = adapter
     }
 

@@ -1,6 +1,6 @@
 package io.pharmacie.models
 
-class Commune(var nomCommune: String?, var wilayacode: Int) {
+class Commune(var nomCommune: String?, var codeWilaya: Int?) {
   /*  var wiyalaCode: Int = 0
         private set
 
