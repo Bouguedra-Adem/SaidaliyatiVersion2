@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
 
-
        card_view_showbycity!!.setOnClickListener {
             PreviousClass = MainActivity::class.java
             val intent = Intent(applicationContext, FilterVille::class.java)
@@ -124,9 +123,12 @@ class MainActivity : AppCompatActivity() {
         val con = pref.getBoolean("connected", false)
         Log.e("AHLAMTEST",con.toString())
         if(!con){
-            orderManager.setVisibility(View.INVISIBLE)
+            orderManager.setVisibility(View.GONE)
+
         }else{
             orderManager.setVisibility(View.VISIBLE)
+            card_view_singup.setVisibility(View.GONE)
+            card_view_login.setVisibility(View.GONE)
         }
 
 
@@ -173,6 +175,4 @@ class MainActivity : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
         }
     }
-
-
 }
