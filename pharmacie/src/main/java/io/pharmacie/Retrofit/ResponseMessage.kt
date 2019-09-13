@@ -1,6 +1,5 @@
 package io.pharmacie.Retrofit
 
-class ResponseMessage {
-     val result: Boolean? = null
-    val message: String? = null
+class ResponseMessage(var result : Boolean,var message:String) {
+
 }

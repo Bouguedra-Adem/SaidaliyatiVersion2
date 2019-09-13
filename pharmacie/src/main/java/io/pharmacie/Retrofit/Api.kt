@@ -28,7 +28,7 @@ interface Api {
     fun loginUser(
         @Path(value = "useremail") email: String,
         @Path(value = "pwd") pwd: String
-    ): Call<User>
+    ): Call<ResponseMessage>
 
     @GET("/pharmacies/{commune}")
     fun getPharmacies(@Path(value = "commune", encoded = true) commune: String): Call<List<pharmacy>>
@@ -37,7 +37,7 @@ interface Api {
     fun getPharmaciesGarde(@Path(value = "dateGarde", encoded = true) dateGarde: String): Call<List<pharmacy>>
 
     @POST("/users")
-    fun createAccount(@Body user: User): Call<User>
+    fun createAccount(@Body user: User): Call<ResponseMessage>
 
     @Multipart
     @POST("/upload-avatar")
@@ -45,6 +45,15 @@ interface Api {
 
     @POST("/command")
     fun createCommand(@Body cmd: Camand): Call<ResponseMessage>
+
+    //updatePassword/:useremail/:lastpassword/:newpassword
+    @GET("/updatePassword/{useremail}/{lastpassword}/{newpassword}")
+    fun ConfirmationCode(
+        @Path(value = "useremail") useremail: String,
+        @Path(value = "lastpassword") lastpassword: String,
+        @Path(value = "newpassword") newpassword: String
+    ): Call<ResponseMessage>
+
 
     @GET(" /command/userEmail/{userEmail}")
     fun getCmdUserEmail(@Path(value = "userEmail") userEmail: String): Call<List<Camand>>

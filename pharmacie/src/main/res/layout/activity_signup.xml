@@ -111,12 +111,3 @@
     </LinearLayout>
     </ScrollView>
 
-   <!-- <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        android:layout_below="@+id/scrollview"
-        app:menu="@menu/botton_navigation"
-        app:itemIconTint="@color/black"/>-->
-
