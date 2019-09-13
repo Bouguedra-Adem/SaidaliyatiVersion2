@@ -47,7 +47,7 @@ class detail_pharma : AppCompatActivity() {
     }
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            val intentprevious = Intent(applicationContext,MainActivity.PreviousClass)
+            val intentprevious = Intent(applicationContext,showPharmacies::class.java)
             startActivity(intentprevious)
             finish()
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
