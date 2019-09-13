@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
         val decorView = window.decorView
         hideSystemUI(decorView)
-        val pref = this!!.getSharedPreferences("fileName", Context.MODE_PRIVATE)
+        val pref = this!!.getSharedPreferences("file", Context.MODE_PRIVATE)
         with (pref.edit()) {
             putBoolean("connected",false)
             //putString("email",emailadr.text.toString())

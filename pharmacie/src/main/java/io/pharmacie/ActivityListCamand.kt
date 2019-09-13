@@ -1,14 +1,17 @@
 package io.pharmacie
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import io.pharmacie.Retrofit.Api
 import io.pharmacie.models.Camand
 import io.pharmacie.models.Commune
+import kotlinx.android.synthetic.main.activity_list_camand.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +31,7 @@ class ActivityListCamand : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val api = retrofit.create<Api>(Api::class.java!!)
-        val call = api.getCmdUserEmail("fa_bouguedra@esi.dz")
+        val call = api.getCmdUserEmail("fm_debbih@esi.dz")
         call.enqueue(object : Callback<List<Camand>> {
 
 
@@ -50,8 +53,25 @@ class ActivityListCamand : AppCompatActivity() {
         })
     }
     private fun initializeView() {
-        _myListView.adapter = ArrayAdapter(this@ActivityListCamand, android.R.layout.simple_list_item_1, camands)
+        mesCommandes.adapter = ArrayAdapter(this@ActivityListCamand, android.R.layout.simple_list_item_1, camands)
 
 
     }
+    override  fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            val intentprevious = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intentprevious)
+            finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_HOME) {
+
+        }
+
+        // // TODO Auto-generated method stub
+        return super.onKeyDown(keyCode, event)
+
+    }
+
 }

@@ -46,11 +46,11 @@ class FilterVille : AppCompatActivity() {
 
         val api = retrofit.create<Api>(Api::class.java!!)
 
-        val dialog = ProgressDialog(this@FilterVille)
+       /* val dialog = ProgressDialog(this@FilterVille)
         dialog.setMessage(resources.getString(R.string.loading))
         dialog.setCancelable(false)
         dialog.setInverseBackgroundForced(false)
-        dialog.show()
+        dialog.show()*/
 
         val call = api.communes()
         call.enqueue(object : Callback<List<Commune>> {
@@ -63,12 +63,12 @@ class FilterVille : AppCompatActivity() {
                     communes.add(c.nomCommune.toString())
                 }
                 initializeView()
-                dialog.hide()
+                //dialog.hide()
             }
 
             override fun onFailure(call: Call<List<Commune>>, t: Throwable) {
                 Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-                dialog.hide()
+                //dialog.hide()
             }
         })
     }
