@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -49,11 +50,14 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     //Map
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-tasks:16.0.1'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.room:room-runtime:2.2.0-alpha02"
+    kapt 'android.arch.persistence.room:compiler:2.2.0-alpha02'
 }
 repositories {
     mavenCentral()

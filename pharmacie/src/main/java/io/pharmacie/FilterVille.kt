@@ -1,31 +1,36 @@
 package io.pharmacie
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import java.util.ArrayList
 import io.pharmacie.Retrofit.Api
 import io.pharmacie.models.Commune
+import io.pharmacie.models.RoomDatabase.DataBase_Instance
+import io.pharmacie.models.RoomDatabase.RepoPharmacie_Local
+import io.pharmacie.models.pharmacy
+import kotlinx.android.synthetic.main.activity_ville.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.Observer
 
 
 class FilterVille : AppCompatActivity() {
     lateinit var _myListView: ListView
      lateinit var _mySpinner: Spinner
+    lateinit var _modeoffline: ListView
 
       var communes = ArrayList<String>()
     var liscommune=ArrayList<Commune>()
@@ -42,40 +47,67 @@ class FilterVille : AppCompatActivity() {
 
         val decorView = window.decorView
         MainActivity.hideSystemUI(decorView)
-        val retrofit = Retrofit.Builder()
+        if (verifyAvailableNetwork(AppCompatActivity())) {
+            val retrofit = Retrofit.Builder()
                 .baseUrl(Api.Base_Url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-        val api = retrofit.create<Api>(Api::class.java!!)
+            val api = retrofit.create<Api>(Api::class.java!!)
 
-       /* val dialog = ProgressDialog(this@FilterVille)
+            /* val dialog = ProgressDialog(this@FilterVille)
         dialog.setMessage(resources.getString(R.string.loading))
         dialog.setCancelable(false)
         dialog.setInverseBackgroundForced(false)
         dialog.show()*/
 
-        val call = api.communes()
-        call.enqueue(object : Callback<List<Commune>> {
-            override fun onResponse(call: Call<List<Commune>>, response: Response<List<Commune>>) {
-                val coms = response.body()
-                liscommune= coms as ArrayList<Commune>
-                for (c in coms!!) {
+            val call = api.communes()
+            call.enqueue(object : Callback<List<Commune>> {
+                override fun onResponse(call: Call<List<Commune>>, response: Response<List<Commune>>) {
+                    val coms = response.body()
+                    liscommune = coms as ArrayList<Commune>
+                    for (c in coms!!) {
 
-                    Log.e("MUSTAPHADEBBIH",c.codeWilaya.toString())
+                        Log.e("MUSTAPHADEBBIH", c.codeWilaya.toString())
 
-                    communes.add(c.nomCommune.toString())
+                        communes.add(c.nomCommune.toString())
 
+                    }
+                    initializeView()
+                    //dialog.hide()
                 }
-                initializeView()
-                //dialog.hide()
-            }
 
-            override fun onFailure(call: Call<List<Commune>>, t: Throwable) {
-                Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-                //dialog.hide()
-            }
-        })
+                override fun onFailure(call: Call<List<Commune>>, t: Throwable) {
+                    Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                    //dialog.hide()
+                }
+            })
+        }else{
+            mySpinner.setVisibility(View.GONE)
+            //myListView.setVisibility(View.GONE)
+            // modeoffline!!.setVisibility(View.VISIBLE)
+            Log.e("dataromlist", "herrrrrrrrrrrrre")
+            val RepoLocal= RepoPharmacie_Local(this.applicationContext)
+            RepoLocal.getAllPharmacie().observe(this, androidx.lifecycle.Observer{
+
+                    val list=it
+                    var nomPharma=ArrayList<String>()
+                    for (c in list!!) {
+
+                        Log.e("MUSTAPHIH", c.nomPrenomPharmacien.toString())
+                        nomPharma.add(c.nomPrenomPharmacien)
+
+
+                    }
+                   // _modeoffline = findViewById(R.id.modeoffline!!)
+                    _myListView = findViewById(R.id.myListView)
+                    _myListView!!.adapter = ArrayAdapter(this@FilterVille, android.R.layout.simple_list_item_1, nomPharma)
+
+                
+
+            })
+
+        }
     }
 
     private fun initializeView() {
@@ -147,7 +179,11 @@ class FilterVille : AppCompatActivity() {
         return super.onKeyDown(keyCode, event)
 
     }
-
+    fun verifyAvailableNetwork(activity:AppCompatActivity):Boolean{
+        val connectivityManager=getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo=connectivityManager.activeNetworkInfo
+        return  networkInfo!=null && networkInfo.isConnected
+    }
     companion object {
 
         private val REQUEST_SIGNUP = 0
