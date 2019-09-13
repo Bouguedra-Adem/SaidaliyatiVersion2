@@ -153,6 +153,4 @@ class MainActivity : AppCompatActivity() {
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
         }
     }
-
-
 }
