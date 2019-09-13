@@ -93,7 +93,7 @@ class FilterVille : AppCompatActivity() {
                     var nomPharma=ArrayList<String>()
                     for (c in list!!) {
 
-                        Log.e("MUSTAPHIH", c.nomPrenomPharmacien.toString())
+
                         nomPharma.add(c.nomPrenomPharmacien)
 
 
