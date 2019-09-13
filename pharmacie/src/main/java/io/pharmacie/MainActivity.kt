@@ -61,19 +61,8 @@ class MainActivity : AppCompatActivity() {
             ButterKnife.bind(this)
         val decorView = window.decorView
         hideSystemUI(decorView)
-        val pref = this!!.getSharedPreferences("file", Context.MODE_PRIVATE)
-        with (pref.edit()) {
-            putBoolean("connected",false)
-            //putString("email",emailadr.text.toString())
-           // putString("pwd",motdepass.text.toString())
-            commit()
-        }
 
-        val con = pref.getBoolean("connected", false)
-        if (con) {
-            Log.e("con=",con.toString())
-            card_view_oncall.isEnabled = false
-        }
+
         card_view_login!!.setOnClickListener {
             // Finish the registration screen and return to the Login activity
             PreviousClass = MainActivity::class.java
@@ -124,9 +113,9 @@ class MainActivity : AppCompatActivity() {
         val con = pref.getBoolean("connected", false)
         Log.e("AHLAMTEST",con.toString())
         if(!con){
-            orderManager.setVisibility(View.INVISIBLE)
+            card_view_camand.setVisibility(View.INVISIBLE)
         }else{
-            orderManager.setVisibility(View.VISIBLE)
+            card_view_camand.setVisibility(View.VISIBLE)
         }
 
 
