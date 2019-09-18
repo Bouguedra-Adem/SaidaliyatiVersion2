@@ -59,6 +59,7 @@ class SignupActivity : AppCompatActivity() {
 
                     val repense = response.body()
                     val result = repense?.result
+                    if(result != null)
                     if(result!!) {
                         val pref = getSharedPreferences("ahlamfile", Context.MODE_PRIVATE)
                         with(pref.edit()){

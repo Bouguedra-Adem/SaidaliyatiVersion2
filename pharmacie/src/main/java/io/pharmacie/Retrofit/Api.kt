@@ -66,7 +66,8 @@ interface Api {
 
     companion object {
 
-        val Base_Url = "https://tranquil-escarpment-61375.herokuapp.com/"
+        //val Base_Url = "https://tranquil-escarpment-61375.herokuapp.com/"
+        val Base_Url = "https://glacial-river-90246.herokuapp.com/"
 
         fun createAvatar(): Api {
             val okHttpClient = OkHttpClient.Builder()
